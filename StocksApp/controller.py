@@ -2,8 +2,10 @@ class Controller:
     def __init__(self, model):
         self.model = model
     
-    def addTickerClick(self, text):
-        print(text)
+    def onBuyClick(self, tickerSymbol, buyPrice):
+        print(tickerSymbol)
+        print(buyPrice)
 
-    def removeTickerClick(self, text):
-        print(text)
+    def onSellClick(self, tickerSymbol, sellPrice):
+        print(tickerSymbol)
+        print(sellPrice)

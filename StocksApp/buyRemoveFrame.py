@@ -17,9 +17,13 @@ class BuyFrame:
         self.buyPriceLabel = Label(self.frame, text="Buy Price: ")
         self.buyPriceLabel.grid(row=2, column=0)
         self.buyPriceInput = Entry(self.frame)
-        self.buyPriceInput.grid(row=3, column=1)
-        self.buyButton = Button(self.frame, text="Buy")
-        self.buyButton.grid(row=4, column=1)
+        self.buyPriceInput.grid(row=2, column=1)
+        self.buyButton = Button(self.frame, text="Buy", command=self.buttonClick)
+        self.buyButton.grid(row=3, column=1)
+
+    def buttonClick(self):
+        self.controller.onBuyClick(self.tickerSymbolInput.get(), 
+                                        self.buyPriceInput.get())
         
 class SellFrame:
     def __init__(self, root, model, controller):
@@ -38,9 +42,14 @@ class SellFrame:
         self.sellPriceLabel = Label(self.frame, text="sell Price: ")
         self.sellPriceLabel.grid(row=2, column=0)
         self.sellPriceInput = Entry(self.frame)
-        self.sellPriceInput.grid(row=3, column=1)
-        self.sellButton = Button(self.frame, text="Sell")
-        self.sellButton.grid(row=4, column=1)
+        self.sellPriceInput.grid(row=2, column=1)
+        self.sellButton = Button(self.frame, text="Sell", command=self.buttonClick)
+        self.sellButton.grid(row=3, column=1)
+
+    def buttonClick(self):
+        self.controller.onSellClick(self.tickerSymbolInput.get(),
+                                          self.sellPriceInput.get())
+
 
 class AddRemoveFrame:
     def __init__(self, root, model, controller):
