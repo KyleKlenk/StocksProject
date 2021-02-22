@@ -1,24 +1,25 @@
-import tkinter as tk
+from tkinter import *
 import apiTest as aT
 
 def main():
-    root = tk.Tk()
-    frame = tk.Frame(root)
+    root = Tk()
+    root.geometry("1920x1080")
+    root.title("Stocks Application")
+    frame = Frame(root)
     frame.pack()
 
     tickersList = []
-    widgetList = []
+    buttonList = []
     dataframeDictionary = {}
 
     tickersList = aT.addStockTicker("SNC.TO", tickersList)
     tickersList = aT.addStockTicker("HIVE.V", tickersList)
     dataframeDictionary = aT.getStockPrices(dataframeDictionary, tickersList)
     for key, value in dataframeDictionary.items():
-        tk.Label(root, text=key + " : " + str(value))
+        button = Button(frame, text=key + " : " + str(value))
+        buttonList.append(button)
+        button.pack()
     
-
-    for c in sorted(root.children):
-        root.children[c].pack()
     root.mainloop()
 
 main()
