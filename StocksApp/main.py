@@ -1,7 +1,7 @@
 from tkinter import *
 from model import *
 from stocksFrame import *
-from buyRemoveFrame import *
+from buySellFrame import *
 from controller import *
 
 class Main:
@@ -10,6 +10,7 @@ class Main:
         self.root.geometry("1920x1080")
         self.root.title("Stocks Application")
         self.model = model
+        model.setMain(self)
         self.controller = controller
         self.stocksFrame = StocksFrame(self.root, self.model)
         self.buyFrame = BuyFrame(self.root, self.model, self.controller)
@@ -17,6 +18,9 @@ class Main:
 
     def run(self):
         self.root.mainloop()
+    
+    def modelUpdated(self):
+        self.stocksFrame.update()
 
 model = Model()
 controllerObject = Controller(model)

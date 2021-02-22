@@ -1,4 +1,5 @@
 from tkinter import *
+from stockTicker import *
 
 class StocksFrame:
     def __init__(self, root, model):
@@ -21,6 +22,16 @@ class StocksFrame:
         # Variables for list of stocks
         self.buttonList = []
         
+    def update(self):
+        stockTickerList = self.model.getStockTickerObjects()
+        rowCounter = 1
+        for stockTicker in stockTickerList:
+            Label(self.frame, text=stockTicker.getStockTicker()).grid(row=rowCounter)
+            Label(self.frame, text=stockTicker.getStockPrice()).grid(row=rowCounter, column=1)
+            Label(self.frame, text=stockTicker.getBuyPrice()).grid(row=rowCounter, column=2)
+            Label(self.frame, text=stockTicker.getPricePercentage()).grid(row=rowCounter, column=3)
+            rowCounter += 1
+            
     
     def assembleFrame(self):
         # Get the data from the model
