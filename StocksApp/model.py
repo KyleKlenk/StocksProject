@@ -34,6 +34,16 @@ class Model:
     
     def modelUpdated(self):
         self.mainOb.modelUpdated()
+
+    def updateStocks(self):
+        for stockTicker in self.stockTickerObjects:
+            df = web.DataReader(stockTicker.getStockTicker(), 'yahoo', self.todaysDate, self.todaysDate)
+            price = df.iloc[0]["Close"]
+            stockTicker.setStockPrice(round(price, 2))
+            stockTicker.setPricePercentage(round(
+                ((price - stockTicker.getBuyPrice()) / stockTicker.getBuyPrice()) * 100, 2))
+        self.modelUpdated()
+
     
     def getStockTickerObjects(self):
         return self.stockTickerObjects

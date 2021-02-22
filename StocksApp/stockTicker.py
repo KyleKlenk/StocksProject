@@ -26,3 +26,4 @@ class StockTicker:
     
     def setPricePercentage(self, percentage):
         self.pricePercentage = percentage
+
