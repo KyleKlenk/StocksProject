@@ -7,9 +7,11 @@ class Model:
         # Instance Variables
         self.stockList = []
         self.stockDict = {}
+        self.stockeTickerObjects = []
         self.todaysDate = dt.datetime(dt.date.today().year, 
                         dt.date.today().month, 
-                        dt.date.today().day - 2)
+                        dt.date.today().day)
+            
 
     def addStockTicker(self, ticker):
         self.stockList.append(ticker)

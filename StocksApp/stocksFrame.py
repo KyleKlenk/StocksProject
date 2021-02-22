@@ -2,14 +2,29 @@ from tkinter import *
 
 class StocksFrame:
     def __init__(self, root, model):
+        # variables for model and root paramaters
         self.root = root
         self.model = model
-        self.buttonList = []
+        # create the frame and place it inside its parent aka root
         self.frame = Frame(root)
         self.frame.pack(side=LEFT, anchor=NW)
+        # Labels to create a list of owned stocks
+        self.stockTickerLabel = Label(self.frame, text="Stock Ticker :")
+        self.stockTickerLabel.grid(row=0, column=0)
+        self.currentPriceLabel = Label(self.frame, text="Current Price :")
+        self.currentPriceLabel.grid(row=0, column=1)
+        self.boughtPriceLabel = Label(self.frame, text="Purchase Price :")
+        self.boughtPriceLabel.grid(row=0, column=2)
+        self.pricePercentage = Label(self.frame, text="%")
+        self.pricePercentage.grid(row=0, column=3)
+        
+        # Variables for list of stocks
+        self.buttonList = []
+        
     
     def assembleFrame(self):
         # Get the data from the model
+
         for key, value in self.model.getStockDict().items():
             button = Button(self.frame, text=key + " : " + str(value))
             self.buttonList.append(button)
