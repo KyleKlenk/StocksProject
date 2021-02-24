@@ -5,27 +5,27 @@ from stockTicker import *
 
 
 class Model:
-    def __init__(self):
+    def __init__(self, database):
+        self.database = database
         # Instance Variables
         self.stockList = []
-        self.stockDict = {}
         self.stockTickerObjects = []
         self.todaysDate = dt.datetime(dt.date.today().year, 
                         dt.date.today().month, 
                         dt.date.today().day)
         self.mainOb = None
         
+    """
+    This is my makeshift listener. It calls "main object" which runs the program which then
+    calls the correct frames to update.
+    """
     def setMain(self, mainOb):
         self.mainOb = mainOb
-
-    def addStockTicker(self, ticker):
-        self.stockList.append(ticker)
-        self.assembleDict()
 
     def buyStock(self, tickerSymbol, buyPrice):
         tickerSymbol = tickerSymbol
         buyPrice = round(float(buyPrice), 2)
-        currentPrice = round(self.getCurrentStockPrice(tickerSymbol), 2)
+        currentPrice = self.getCurrentStockPrice(tickerSymbol)
         percentage = round(((currentPrice - buyPrice) / buyPrice) * 100, 2)
         
         stockTicker = StockTicker(tickerSymbol, currentPrice, buyPrice, percentage)
@@ -52,34 +52,13 @@ class Model:
         print(tickerSymbol)
         print(sellPrice)
     
-    def removeStockTicker(self, ticker):
-        self.stockList.remove(ticker)
-        del self.stockDict[ticker]
     
     def getCurrentStockPrice(self, ticker):
         df = web.DataReader(ticker, 'yahoo', self.todaysDate, self.todaysDate)
         price = df.iloc[0]["Close"]
-        return price
-
-    
-    def assembleDict(self):
-        for ticker in self.stockList:
-            df = web.DataReader(ticker, 'yahoo', self.todaysDate, self.todaysDate)
-            closeColumn = df.iloc[0]["Close"]
-            self.stockDict[ticker] = closeColumn
-    
-    def getStockDict(self):
-        return self.stockDict
-
+        return round(price, 2)
     
 
-# model = Model()
-# model.addStockTicker("SNC.TO")
-# print(model.stockList)
-# print(model.stockDict)
-# model.removeStockTicker("SNC.TO")
-# print(model.stockList)
-# print(model.stockDict)
     
 
 

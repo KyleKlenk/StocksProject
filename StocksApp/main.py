@@ -3,6 +3,7 @@ from model import *
 from stocksFrame import *
 from buySellFrame import *
 from controller import *
+from databaseModel import *
 
 class Main:
     def __init__(self, model, controller):
@@ -28,9 +29,13 @@ class Main:
         self.model.updateStocks()
         self.root.after(5000, self.updateTask)
 
-model = Model()
+# Start the database
+dataBaseObject = DatabaseModel()
+# Establish the model
+model = Model(dataBaseObject)
+# 
 controllerObject = Controller(model)
-model.addStockTicker("SNC.TO")
+
 main = Main(model, controllerObject)
 main.run()
 
