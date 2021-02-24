@@ -26,4 +26,24 @@ class StockTicker:
     
     def setPricePercentage(self, percentage):
         self.pricePercentage = percentage
+    
+    """
+    This will be the function that carries out the buy and sell rules
+    """
+    def analyzePortfolio(self):
+        # if the percentage is below -6.5%
+        if (self.pricePercentage <= -6.5):
+            # send text message sell
+            # log our recomendation
+            print(self.stockTicker, "sell")
+        
+        # else if percentage is above 20%
+        elif (self.pricePercentage >= 20):
+            # send text message you may want to think about selling
+            # log our recomendation
+            print(self.stockTicker, "Think about selling")
+        else:
+            # log some key stats about ourselves
+            print(self.stockTicker, "Log")
+
 

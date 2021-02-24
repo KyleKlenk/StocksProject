@@ -2,11 +2,12 @@ import datetime as dt
 import pandas as pd
 import pandas_datareader.data as web
 from stockTicker import *
+from databaseModel import *
 
 
 class Model:
-    def __init__(self, database):
-        self.database = database
+    def __init__(self):
+        self.database = DatabaseModel()
         # Instance Variables
         self.stockList = []
         self.stockTickerObjects = []
@@ -14,6 +15,7 @@ class Model:
                         dt.date.today().month, 
                         dt.date.today().day)
         self.mainOb = None
+        
         
     """
     This is my makeshift listener. It calls "main object" which runs the program which then
@@ -23,7 +25,7 @@ class Model:
         self.mainOb = mainOb
 
     def buyStock(self, tickerSymbol, buyPrice):
-        tickerSymbol = tickerSymbol
+        self.database.insertPurchace(tickerSymbol, buyPrice)
         buyPrice = round(float(buyPrice), 2)
         currentPrice = self.getCurrentStockPrice(tickerSymbol)
         percentage = round(((currentPrice - buyPrice) / buyPrice) * 100, 2)
@@ -42,6 +44,7 @@ class Model:
             stockTicker.setStockPrice(round(price, 2))
             stockTicker.setPricePercentage(round(
                 ((price - stockTicker.getBuyPrice()) / stockTicker.getBuyPrice()) * 100, 2))
+            stockTicker.analyzePortfolio()
         self.modelUpdated()
 
     
@@ -52,11 +55,27 @@ class Model:
         print(tickerSymbol)
         print(sellPrice)
     
-    
     def getCurrentStockPrice(self, ticker):
         df = web.DataReader(ticker, 'yahoo', self.todaysDate, self.todaysDate)
         price = df.iloc[0]["Close"]
         return round(price, 2)
+
+    def getStocksFromDatabase(self):
+        rows = self.database.selectAllPurchaces()
+        # create the stockTicker objects and notify the view
+        for row in rows:
+            tickerSymbol = row[1]
+            buyPrice = row[2]
+            currentPrice = 0 # will be updated in 5 seconds
+            percentage = 0 # will also be updated in 5 seconds
+            ticker = StockTicker(tickerSymbol, currentPrice, buyPrice, percentage)
+            self.stockTickerObjects.append(ticker)
+        self.modelUpdated()
+        
+
+
+
+
     
 
     

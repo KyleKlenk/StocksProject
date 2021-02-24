@@ -18,24 +18,20 @@ class Main:
         self.sellFrame = SellFrame(self.root, self.model, self.controller)
 
     def run(self):
-        self.root.after(5000, self.updateTask)
+        self.model.getStocksFromDatabase()
+        self.root.after(10000, self.updateTask)
         self.root.mainloop()
     
     def modelUpdated(self):
         self.stocksFrame.update()
     
     def updateTask(self):
-        print("updating")
         self.model.updateStocks()
-        self.root.after(5000, self.updateTask)
+        self.root.after(10000, self.updateTask)
 
-# Start the database
-dataBaseObject = DatabaseModel()
-# Establish the model
-model = Model(dataBaseObject)
-# 
+
+model = Model()
 controllerObject = Controller(model)
-
 main = Main(model, controllerObject)
 main.run()
 

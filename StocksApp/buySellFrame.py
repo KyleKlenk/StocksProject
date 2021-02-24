@@ -24,6 +24,8 @@ class BuyFrame:
     def buttonClick(self):
         self.controller.onBuyClick(self.tickerSymbolInput.get(), 
                                         self.buyPriceInput.get())
+        self.tickerSymbolInput.delete(0, 'end')
+        self.buyPriceInput.delete(0, 'end')
         
 class SellFrame:
     def __init__(self, root, model, controller):
@@ -49,5 +51,8 @@ class SellFrame:
     def buttonClick(self):
         self.controller.onSellClick(self.tickerSymbolInput.get(),
                                           self.sellPriceInput.get())
+        self.tickerSymbolInput.delete(0, "end")
+        self.sellPriceInput.delete(0, "end")
+        
 
 
