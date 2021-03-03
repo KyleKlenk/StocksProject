@@ -54,6 +54,19 @@
             <button onclick=buyStock()> Buy Stock </button>
         </div>
 
+        <br />
+
+        <div class="center">
+            <h2> Sell Stock </h2>
+            <label for="stockTickerSell"> Ticker Symbol: </label>
+            <input id="stockTickerSell" type="text" /> <br />
+            <label for="sellPrice"> Sell Price: </label>
+            <input id="sellPrice" type="number" /> <br />
+            <label for="shares" type="number"> Shares: </label>
+            <input id="sellShares" type="number" /> <br />
+            <button> Sell Stock </button>
+        </div>
+
 
         <script type="text/javascript">
             var rows = 0
@@ -70,11 +83,11 @@
                         }
                         for (row in data) {
                             rows += 1
-                            console.log(data[row].fields)
+                            console.log(data[row]);
                             var newRow = table.insertRow(-1);
                             var newTicker = newRow.insertCell(0);
                             var newTickerText = document.createTextNode(
-                                data[row].fields.tickerSymbol);
+                                data[row].pk);
                             newTicker.append(newTickerText);
 
                             var newCurrentPrice = newRow.insertCell(1);
