@@ -9,8 +9,8 @@ client = Client(account_sid, auth_token)
 message = client.messages \
                 .create(
                      body="Ready For Stocks",
-                     from_='+17259991717',
-                     to='+13068300288'
+                     from_='',
+                     to=''
                  )
 
 print(message.sid)
